@@ -1,8 +1,6 @@
 package com.sap.sct.idtmbe.controller;
 
-import com.sap.sct.idtmbe.api.enumeration.DeletionStatus;
 import com.sap.sct.idtmbe.api.service.EntityContentService;
-import com.sap.sct.idtmbe.exception.ElementDoesNotExistException;
 import com.sap.sct.idtmbe.model.entity.EntityContent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
