@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,11 @@ public class EntityContentController {
         return ResponseEntity.ok(entityContentService.getList());
     }
 
+    @GetMapping(value = "/{entitytablename}/data", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Object>> getEntityContentData(@PathVariable("entitytablename") @NotNull String entityTableName) {
+        return ResponseEntity.ok(entityContentService.getEntityContentData(entityTableName));
+    }
+
     @GetMapping(value = "/{entitycontentid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EntityContent> getEntityContentById(@PathVariable("entitycontentid") @NotNull Long entityContentId) {
         return ResponseEntity.ok(entityContentService.getById(entityContentId));
@@ -40,12 +46,12 @@ public class EntityContentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(entityContentService.create(dto));
     }
 
-    @PutMapping(value = "/{entitycontentid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityContent> updateEntityContent(@PathVariable("ingredientid") @NotNull Long entityContentId,
-                                                @RequestBody EntityContent dto) {
-
-        return ResponseEntity.accepted().body(entityContentService.update(entityContentId, dto));
-    }
+//    @PutMapping(value = "/{entitycontentid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<EntityContent> updateEntityContent(@PathVariable("ingredientid") @NotNull Long entityContentId,
+//                                                @RequestBody EntityContent dto) {
+//
+//        return ResponseEntity.accepted().body(entityContentService.update(entityContentId, dto));
+//    }
 
     @DeleteMapping(value = "/{entitycontentid}")
     public ResponseEntity<Void> deleteEntityContent(@PathVariable("entitycontentid") @NotNull Long entityContentId) {

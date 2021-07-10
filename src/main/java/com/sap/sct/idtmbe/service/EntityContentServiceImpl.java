@@ -1,13 +1,13 @@
 package com.sap.sct.idtmbe.service;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sap.sct.idtmbe.api.service.EntityContentService;
 import com.sap.sct.idtmbe.exception.ElementDoesNotExistException;
+import com.sap.sct.idtmbe.mapper.ObjectMapper;
 import com.sap.sct.idtmbe.model.entity.EntityContent;
 import com.sap.sct.idtmbe.repository.EntityContentRepository;
 import org.apache.commons.collections.map.LinkedMap;
@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.ResultSet;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,15 @@ public class EntityContentServiceImpl implements EntityContentService {
         return entityContentRepository.findById(id).orElseThrow(() -> new ElementDoesNotExistException(
                         String.format(ENTITY_TABLE_DOES_NOT_EXISTS_EXCEPTION_MESSAGE, id)
                 ));
+    }
+
+    @Override
+    @Transactional
+    public List<Object> getEntityContentData(String tableName) {
+        final String query = "SELECT * from " + tableName;
+        List<Object> rows = jdbcTemplate.query(query,new ObjectMapper());
+
+        return rows;
     }
 
     @Override

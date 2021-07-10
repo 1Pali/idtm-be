@@ -2,7 +2,9 @@ package com.sap.sct.idtmbe.api.service;
 
 import com.sap.sct.idtmbe.model.entity.EntityContent;
 
+import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 public interface EntityContentService {
 
@@ -20,6 +22,14 @@ public interface EntityContentService {
      * @return list of all file
      */
     List<EntityContent> getList();
+
+    /**
+     * Get file by id
+     *
+     * @param tableName Long of file
+     * @return all data of given entity with given id
+     */
+    List<Object> getEntityContentData(final String tableName);
 
     /**
      * delete file by id
